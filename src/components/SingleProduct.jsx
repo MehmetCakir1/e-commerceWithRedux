@@ -1,16 +1,19 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 
 const SingleProduct = ({item}) => {
+  const navigate=useNavigate()
   const {id,title,price,category,image}=item;
   return (
-    <div className='col-sm-6 col-md-4 col-lg-3 p-1'>
-      <div className='inner-div'>
+    // col-sm-6 col-md-4 col-lg-3
+    <div className=' p-1 text-center outer-div flex-wrap'>
+      <div className='inner-div border border-1 border-dark py-1 pb-2'>
       {/* <h3>{title}</h3> */}
-      <div className='img-div'>
+      <div className='img-div p-2'>
         <img src={image} alt={title} />
       </div>
-      <p>{price}</p>
-      <p>{category}</p>
+      <p className='d-flex justify-content-md-between align-items-center px-2'><del className='fs-5'>${(price+20).toFixed(2)}</del> <span className='fs-5 fw-bold'>${price}</span></p>
+      <button className='border-0 fw-bold view py-1 px-3 rounded-3' onClick={() => navigate(`/products/${id}`)}>VIEW</button>
       </div>
     </div>
   )

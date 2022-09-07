@@ -4,6 +4,7 @@ import About from "../pages/About";
 import Home from "../pages/Home";
 import Details from "../pages/Details";
 import Products from "../pages/Products";
+import Footer from "../components/Footer";
 
 const AppRouter = () => {
   return (
@@ -15,6 +16,7 @@ const AppRouter = () => {
         <Route path="/products" element={<Products/>}/>
         <Route path="/products/:id" element={<Details/>}/>
     </Routes>
+    <Footer/>
     </BrowserRouter>
   )
 }

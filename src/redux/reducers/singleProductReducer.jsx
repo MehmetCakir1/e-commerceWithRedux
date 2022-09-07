@@ -2,13 +2,14 @@ import {
     SET_SINGLE_PRODUCT
 } from "../types/productsTypes"
 
+const intialState = {
+  singleProduct: [],
+};
 
-export const singleProductReducer = (state = {}, { type, payload }) => {
+export const singleProductReducer = (state = intialState, { type, payload }) => {
     switch (type) {
       case SET_SINGLE_PRODUCT:
         return { ...state, ...payload };
-    //   case ActionTypes.REMOVE_SELECTED_PRODUCT:
-    //     return {};
       default:
         return state;
     }
