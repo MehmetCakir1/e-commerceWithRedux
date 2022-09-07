@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 
-const SideCategory = ({categoryList,price}) => {
+const SideCategory = ({categoryList,price,setPrice,maxPrice}) => {
   categoryList=categoryList.sort()
+
+  // console.log(maxPrice);
   return (
     <div>
       <div className='search-part'>
@@ -18,7 +20,7 @@ const SideCategory = ({categoryList,price}) => {
       <div className='price-part mt-4'>
         <h5>PRICE</h5>
         <p className='m-0'>${price}</p>
-        <input type="range" className='w-50'/>
+        <input type="range" className='w-50' value={price} min={0} max={maxPrice} onChange={(e)=>setPrice(e.target.value)}/>
       </div>
       <h5 className='mt-4'>SORT BY</h5>
       <select name="select" id="select" className="bg-transparent m-0 w-50">

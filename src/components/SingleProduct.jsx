@@ -1,9 +1,14 @@
 import React from 'react'
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { reset } from '../redux/actions/productsActions'
+
 
 const SingleProduct = ({item}) => {
+  const dispatch=useDispatch()
   const navigate=useNavigate()
   const {id,title,price,category,image}=item;
+
   return (
     // col-sm-6 col-md-4 col-lg-3
     <div className=' p-1 text-center outer-div flex-wrap'>
@@ -13,7 +18,7 @@ const SingleProduct = ({item}) => {
         <img src={image} alt={title} />
       </div>
       <p className='d-flex justify-content-md-between align-items-center px-2'><del className='fs-5'>${(price+20).toFixed(2)}</del> <span className='fs-5 fw-bold'>${price}</span></p>
-      <button className='border-0 fw-bold view py-1 px-3 rounded-3' onClick={() => navigate(`/products/${id}`)}>VIEW</button>
+      <button className='border-0 fw-bold view py-1 px-3 rounded-3' onClick={() => {navigate(`/products/${id}`);dispatch(reset())}}>VIEW</button>
       </div>
     </div>
   )

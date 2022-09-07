@@ -1,8 +1,17 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const About = () => {
+  const navigate=useNavigate()
   return (
-    <div className='row container m-auto py-5'>
+    <>
+         <div className="about-header py-2 ">
+        <h1 className="about-h1 p-3 container fw-bold">
+          <span onClick={() => navigate("/")}>Home</span>
+          <span> / About</span> 
+        </h1>
+      </div>
+      <div className='row container m-auto py-5'>
       <div className="starfish col-md-6 p-3">
         <img src="images/starfish.jpg" alt="starfish" />
       </div>
@@ -18,6 +27,8 @@ The girl seemed crushed, suddenly deflated. But after a few moments, she bent do
 The old man looked at the girl inquisitively and thought about what she had done and said. Inspired, he joined the little girl in throwing starfish back into the sea. Soon others joined, and all the starfish were saved.</p>
       </div>
     </div>
+    </>
+
   )
 }
 
