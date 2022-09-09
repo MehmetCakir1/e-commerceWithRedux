@@ -60,7 +60,7 @@
   width:227px;
 }
 .img-div{
-  width:100%
+  width:100%;
 }
 .img-div img{
   width:60%;
@@ -69,9 +69,17 @@
 .view{
   background-color:lightpink;
 }
+.title-part{
+  text-overflow: ellipsis;
+  overflow: hidden;     
+  white-space: nowrap;
+}
 /*------------------------------------SIDE CATEGORY---------------------------------*/
 input[type="range"]{
   accent-color:orangered;
+  cursor:pointer;
+}
+.category-part-li span,#select{
   cursor:pointer;
 }
 
@@ -93,7 +101,11 @@ input[type="range"]{
 .details-header span:last-child{
   color:#453227 
 }
-
+/*------------------------------CART---------------------------*/
+.cart-upper-part{
+  display: grid;
+  grid-template-columns: 35% 20% 15% 20% 10%;
+}
 
 
 

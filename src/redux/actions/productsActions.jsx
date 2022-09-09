@@ -4,7 +4,8 @@ import {
     LOADING,
     INCREMENT,
     DECREMENT,
-    RESET
+    RESET,
+    CART
 } from "../types/productsTypes"
 
 
@@ -24,3 +25,7 @@ export const increment = () => {
 
 export const decrement = () => ({ type: DECREMENT });
 export const reset = () => ({ type: RESET });
+
+export const setCart = (payload)=>{
+ return {type:CART,payload: payload} 
+}

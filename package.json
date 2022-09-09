@@ -16,6 +16,8 @@
     "react-scripts": "5.0.1",
     "react-toastify": "^9.0.8",
     "redux": "^4.2.0",
+    "redux-thunk": "^2.4.1",
+    "underscore": "^1.13.4",
     "web-vitals": "^2.1.0"
   },
   "scripts": {

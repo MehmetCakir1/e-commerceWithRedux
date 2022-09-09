@@ -1,69 +1,157 @@
-import React, { useEffect, useState } from 'react'
-import axios from "axios"
-import { toastErrorNotify } from '../helpers/toastify'
-import {useDispatch, useSelector} from "react-redux"
-import { setLoading, setProduct } from '../redux/actions/productsActions'
-import SingleProduct from '../components/SingleProduct'
-import SideCategory from '../components/SideCategory'
-import { useNavigate } from 'react-router-dom'
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { toastErrorNotify } from "../helpers/toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { setLoading, setProduct } from "../redux/actions/productsActions";
+import SingleProduct from "../components/SingleProduct";
+import SideCategory from "../components/SideCategory";
+import { useNavigate } from "react-router-dom";
 
+let url = "https://fakestoreapi.com/products";
 
-let url='https://fakestoreapi.com/products'
+const _ = require('underscore');//! UNDERSCORE********** _.intersection([][][])
+
 
 const Products = () => {
-    const navigate=useNavigate()
-const dispatch=useDispatch()
-const products=useSelector((state)=>state.allProducts.products)
-const loading=useSelector((state)=>state.allProducts.loading)
-const [price,setPrice]=useState([])
-const [maxPrice,setMaxPrice]=useState()
-// console.log(loading)
-    const getAllProducts = async()=>{
-        dispatch(setLoading(true))
-        try{
-            const {data}=await axios.get(url)
-            dispatch(setProduct(data))
-            setPrice(Math.max(...data.map((item) => item.price)))
-            setMaxPrice(Math.max(...data.map((item) => item.price)))
-            dispatch(setLoading(false))
-        }catch(err){
-            toastErrorNotify(err.message)
-            dispatch(setLoading(false))
-        }
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const products = useSelector((state) => state.allProducts.products);
+  const loading = useSelector((state) => state.allProducts.loading);
+  const [tempProducts,setTempProducts]=useState(products)
+  const [maxPrice, setMaxPrice] = useState();
+  const [price, setPrice] = useState([]);
+  const [category, setCategory] = useState("all");
+  const [searchTerm,setSearchTerm]=useState("");
+  const [sortedProduct, setSortedProduct] = useState("Price(Lowest)")
+
+
+
+  // console.log(loading)
+  const getAllProducts = async () => {
+    dispatch(setLoading(true));
+    try {
+      const { data } = await axios.get(url);
+      dispatch(setProduct(data));
+      setPrice(Math.max(...data.map((item) => item.price)));
+      setMaxPrice(Math.max(...data.map((item) => item.price)));
+      dispatch(setLoading(false));
+    } catch (err) {
+      toastErrorNotify(err.message);
+      dispatch(setLoading(false));
     }
-    useEffect(() => {
-        getAllProducts()
-    }, [])
+  };
+  useEffect(() => {
+    getAllProducts();
+  }, []);
 
-    const categoryList= ["All",...new Set(products.map((item)=>item.category))]
-    // console.log(categoryList)
+  useEffect(() => {
+    if (products.length>0 && !loading) {
+      setTempProducts(products);
+      setPrice(maxPrice)
+    }
+  }, [products]);
+// console.log(maxPrice)
+console.log(price);
+  useEffect(() => {
+    filterItems();
+  }, [category,price,searchTerm]);
 
-    // console.log(defaultPrice);
-// console.log(products)
+  useEffect(() => {
+    sortBy();
+  }, [sortedProduct]);
+
+  const categoryList = [
+    "All",
+    ...new Set(products.map((item) => item.category)),
+  ];
+  // console.log(categoryList)
+
+  // console.log(defaultPrice);
+//   console.log(products)
+
+  const filterItems = () => {
+    let tempCategory;
+    let tempPrice;
+    let tempSearch;
+    if (category === "all" && price == maxPrice && searchTerm=="") {
+      setTempProducts(products);
+    } else {
+      if (category !== "all") {
+        tempCategory = products?.filter((item) => item.category === category);
+      } else {
+        tempCategory = products;
+      }
+      if (price !== maxPrice) {
+        tempPrice = products?.filter((item) => item.price <= price);
+      } else {
+        tempPrice = products;
+      }
+      if(searchTerm!==""){
+        tempSearch=products?.filter((item)=>item.title.toLowerCase().includes(searchTerm))
+      }else{
+        tempSearch = products
+      }
+      setTempProducts(_.intersection(tempCategory,tempPrice,tempSearch))
+    }
+  };
+
+
+  const sortBy = () => {
+    let empty = []
+  // console.log(sortedProduct);
+  if (sortedProduct === "Price(Lowest)"){
+    const newStatus = empty.concat(tempProducts)
+  setTempProducts(newStatus?.sort((a,b)=>a.price - b.price))
+  empty = []
+  }
+  if (sortedProduct === "Price(Highest)"){
+    const newStatus = empty.concat(tempProducts)
+  setTempProducts(newStatus?.sort((a,b)=>b.price - a.price))
+  empty = []
+  }
+  if (sortedProduct === "Name(A-Z)"){
+    const newStatus = empty.concat(tempProducts)
+  setTempProducts(_.sortBy(newStatus, 'title'))
+  empty = []
+  }
+  if (sortedProduct === "Name(Z-A)"){
+    const newStatus = empty.concat(tempProducts)
+  setTempProducts(_.sortBy(newStatus, 'title').reverse())
+  empty = []
+  }
+    }
 
   return (
     <>
-             <div className="products-header py-2 ">
+      <div className="products-header py-2 ">
         <h1 className="products-h1 p-3 container fw-bold">
           <span onClick={() => navigate("/")}>Home</span>
-          <span> / Products</span> 
+          <span> / Products</span>
         </h1>
       </div>
-      <div className='row px-md-4 m-0 mt-3 mt-md-4'>
-        <div className='col-md-3 m-0'>
-            <SideCategory categoryList={categoryList} price={price} maxPrice={maxPrice} setPrice={setPrice}/>
+      <div className="row px-md-4 m-0 mt-3 mt-md-4">
+        <div className="col-md-3 m-0">
+          <SideCategory
+            categoryList={categoryList}
+            category={category}
+            setCategory={setCategory}
+            price={price}
+            maxPrice={maxPrice}
+            setPrice={setPrice}
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
+            sortedProduct={sortedProduct}
+            setSortedProduct={setSortedProduct}
+          />
         </div>
-            <div className='row col-md-9 m-0 m-auto d-flex justify-content-center align-items-center'>
-        {products.map((item)=>{
-            return(
-                <SingleProduct key={item.id} item={item}/>
-            )
-        })}
-    </div>
-    </div>
+        <div className="row col-md-9 m-0 m-auto d-flex justify-content-center align-items-center">
+          {tempProducts.map((item) => {
+            return <SingleProduct key={item.id} item={item} />;
+          })}
+        </div>
+      </div>
     </>
+  );
+};
 
-  )
-}
-
-export default Products
+export default Products;

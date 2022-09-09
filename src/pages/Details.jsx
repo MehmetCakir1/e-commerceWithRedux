@@ -1,4 +1,4 @@
-import {useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux"
 import { toastErrorNotify } from '../helpers/toastify'
 import axios from "axios"
@@ -6,6 +6,8 @@ import { setLoading, setSingleProduct,increment,decrement } from '../redux/actio
 import {useEffect} from "react"
 import { BsStar,BsStarHalf,BsStarFill } from "react-icons/bs";
 import { FaMinus,FaPlus} from "react-icons/fa";
+import { setCart} from '../redux/actions/productsActions'
+
 
 
 
@@ -18,7 +20,9 @@ const Details = () => {
     const singleProduct=useSelector((state)=>state.singleProduct)
     const loading=useSelector((state)=>state.singleProduct.loading)
     const amount=useSelector((state)=>state.singleProduct.amount)
+    const cart=useSelector((state)=>state.cart.cart)
 
+    console.log(cart)
 // console.log(loading)
     let singleUrl=`https://fakestoreapi.com/products/${id}`
 
@@ -31,7 +35,7 @@ const Details = () => {
             dispatch(setLoading(false))
 
         }catch(err){
-            toastErrorNotify(err.message)
+            // toastErrorNotify(err.message)
             dispatch(setLoading(false))
         }
     }
@@ -40,9 +44,32 @@ const Details = () => {
         getSingleProduct()
     }, [])
 
+    const {title,description,price,category,image,rating}=singleProduct;
+
+
+    const addToCart = () =>{
+        // let oldAmount;
+        const date = new Date().getTime();
+        // let newcart = {image:image, title:title, amount:amount,price:price,date:date,id:id};
+        // console.log(newcart);
+        // let tempArr=cart.filter((item)=>item.title===newcart.title)
+        // if(tempArr.length>0){
+        //     oldAmount=tempArr[0].amount
+        //     newcart={...newcart,amount:(oldAmount+newcart.amount)} 
+        //     cart.splice(cart.indexOf(tempArr[0]),1)
+        //     dispatch(()=>setCart([...cart,newcart]));
+        //   }else{
+        //     dispatch(()=>setCart([...cart,newcart]));
+        //   }
+
+        ///******************************************************** */
+        let newcart = {image:image, title:title, amount:amount,price:price,date:date,id:id};
+        dispatch(setCart([...cart,newcart]))
+        navigate("/cart")
+      }
+
     // console.log(loading);
     // console.log(singleProduct);
-    const {title,description,price,category,image,rating}=singleProduct;
     // console.log(rating)
     // console.log(title);
 
@@ -88,7 +115,7 @@ const Details = () => {
             <h2 className="m-0 mx-1 fw-bold fs-1">{amount}</h2>
             <button className="bg-transparent border-0 fs-4 ms-2 my-2" onClick={()=>amount<10 && dispatch(increment())}><FaPlus/></button>
           </div>
-          <button className="cartBtn border-0 p-2 rounded-2 my-3 bg-primary fw-bold text-light">ADD TO CART</button>
+          <button className="cartBtn border-0 p-2 rounded-2 my-3 bg-primary fw-bold text-light" onClick={addToCart}>ADD TO CART</button>
         </div>
     </div>
     </>

@@ -7,7 +7,6 @@ import {
 } from "../types/productsTypes"
 
 const intialState = {
-  singleProduct: {},
   loading:false,
   amount:1
 };
