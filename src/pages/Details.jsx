@@ -22,8 +22,6 @@ const Details = () => {
     const amount=useSelector((state)=>state.singleProduct.amount)
     const cart=useSelector((state)=>state.cart.cart)
 
-    console.log(cart)
-// console.log(loading)
     let singleUrl=`https://fakestoreapi.com/products/${id}`
 
     const getSingleProduct= async()=>{
@@ -44,34 +42,23 @@ const Details = () => {
         getSingleProduct()
     }, [])
 
-    const {title,description,price,category,image,rating}=singleProduct;
-
-
+    const {title,description,price,image}=singleProduct;
     const addToCart = () =>{
-        // let oldAmount;
+        let oldAmount;
         const date = new Date().getTime();
-        // let newcart = {image:image, title:title, amount:amount,price:price,date:date,id:id};
-        // console.log(newcart);
-        // let tempArr=cart.filter((item)=>item.title===newcart.title)
-        // if(tempArr.length>0){
-        //     oldAmount=tempArr[0].amount
-        //     newcart={...newcart,amount:(oldAmount+newcart.amount)} 
-        //     cart.splice(cart.indexOf(tempArr[0]),1)
-        //     dispatch(()=>setCart([...cart,newcart]));
-        //   }else{
-        //     dispatch(()=>setCart([...cart,newcart]));
-        //   }
-
-        ///******************************************************** */
         let newcart = {image:image, title:title, amount:amount,price:price,date:date,id:id};
+        let tempArr=cart.filter((item)=>item.title===newcart.title)
+        console.log(tempArr)
+        if(tempArr.length>0){
+            oldAmount=tempArr[0].amount
+            console.log(oldAmount);
+            newcart={...newcart,amount:(oldAmount+newcart.amount)} 
+            console.log(newcart)
+            cart.splice(cart.indexOf(tempArr[0]),1)
+          }
         dispatch(setCart([...cart,newcart]))
         navigate("/cart")
       }
-
-    // console.log(loading);
-    // console.log(singleProduct);
-    // console.log(rating)
-    // console.log(title);
 
   return (
     <>
@@ -82,33 +69,31 @@ const Details = () => {
           <span> / Details</span> 
         </h1>
       </div>
-      <div className="mt-3 ps-5"><button className="border-0 bg-success rounded-3 px-3 py-2 text-light" onClick={() => navigate("/products")}>BACK TO PRODUCTS</button></div>
-      <div className="row container m-auto m-0 my-md-5 p-0">
-        <div className="detail-img-div col-md-6 d-flex justify-content-center align-items-center m-0">
+      <div className="mt-3 ps-5"><button className="border-0 back-to-btn rounded-3 px-3 py-2 text-light" onClick={() => navigate("/products")}>BACK TO PRODUCTS</button></div>
+      <div className="row container m-auto m-0 my-3 my-md-5 py-2">
+        <div className="detail-img-div col-lg-6 d-flex justify-content-center align-items-center m-0">
             <img src={image} alt={title} />
         </div>
-        <div className="detail-content col-md-6 m-0">
-            <h1>{title}</h1>
-            <p className="text-danger fw-bold">rating and reviews will be written</p>
-            <h2>${price}</h2>
-               {/* < div className="stars fs-4 d-flex align-items-center flex-row text-warning">
+        <div className="detail-content col-lg-6 m-0 mt-4 mt-lg-0">
+            <h1 className="details-title">{title}</h1>
+            <h2 className="fw-bold">${price}</h2>
+              < div className="stars fs-4 d-flex align-items-center flex-row text-warning my-2">
             <span className="d-flex align-items-center">
-              {rating.rate >=1 ? <BsStarFill/> : rating.rate>=0.5 ? <BsStarHalf/> : <BsStar/>}
+              {singleProduct.rating ? (singleProduct.rating.rate >=1 ? <BsStarFill/> : singleProduct.rating.rate>=0.5 ? <BsStarHalf/> : <BsStar />):null }
             </span>
             <span className="d-flex align-items-center">
-              {rating.rate >=2 ? <BsStarFill/> : rating.rate>=1.5 ? <BsStarHalf/> : <BsStar/>}
+            {singleProduct.rating ? (singleProduct.rating.rate >=2 ? <BsStarFill/> : singleProduct.rating.rate>=1.5 ? <BsStarHalf/> : <BsStar />):null }
             </span>
             <span className="d-flex align-items-center">
-              {rating.rate >=3 ? <BsStarFill/> : rating.rate>=2.5 ? <BsStarHalf/> : <BsStar/>}
+            {singleProduct.rating ? (singleProduct.rating.rate >=3 ? <BsStarFill/> : singleProduct.rating.rate>=2.5 ? <BsStarHalf/> : <BsStar />):null }
             </span>
             <span className="d-flex align-items-center">
-              {rating.rate >=4 ? <BsStarFill/> : rating.rate>=3.5 ? <BsStarHalf/> : <BsStar/>}
+            {singleProduct.rating ? (singleProduct.rating.rate >=4 ? <BsStarFill/> : singleProduct.rating.rate>=3.5 ? <BsStarHalf/> : <BsStar />):null }
             </span>
             <span className="d-flex align-items-center">
-              {rating.rate ==5 ? <BsStarFill/> : rating.rate>=4.5 ? <BsStarHalf/> : <BsStar/>}
-            </span>
-            <span className="single-detail-review d-flex align-items-center fs-5 ps-2">({rating.count} customer reviews)</span>
-          </div>  */}
+            {singleProduct.rating ? (singleProduct.rating.rate >=5 ? <BsStarFill/> : singleProduct.rating.rate>=4.5 ? <BsStarHalf/> : <BsStar />):null }            </span>
+            <span className="single-detail-review d-flex align-items-center fs-5 ps-2 text-dark">({singleProduct.rating ? singleProduct.rating.count :null} customer reviews)</span>
+          </div> 
           <p>{description}</p>
           <div className="d-flex p-0 align-items-center">
             <button className="bg-transparent border-0 fs-4 me-2 my-2 " onClick={()=> amount>1 && dispatch(decrement())} ><FaMinus/></button>

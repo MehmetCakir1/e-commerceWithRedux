@@ -18,13 +18,13 @@ const Products = () => {
   const products = useSelector((state) => state.allProducts.products);
   const loading = useSelector((state) => state.allProducts.loading);
   const [tempProducts,setTempProducts]=useState(products)
-  const [maxPrice, setMaxPrice] = useState();
-  const [price, setPrice] = useState([]);
+  const [maxPrice, setMaxPrice] = useState(0);
+  const [price, setPrice] = useState(0);
   const [category, setCategory] = useState("all");
   const [searchTerm,setSearchTerm]=useState("");
   const [sortedProduct, setSortedProduct] = useState("Price(Lowest)")
 
-
+// console.log(sortedProduct)
 
   // console.log(loading)
   const getAllProducts = async () => {
@@ -46,12 +46,13 @@ const Products = () => {
 
   useEffect(() => {
     if (products.length>0 && !loading) {
-      setTempProducts(products);
+      setTempProducts(products.sort((a,b)=>a.price-b.price))
       setPrice(maxPrice)
+      // console.log(tempProducts);
     }
   }, [products]);
 // console.log(maxPrice)
-console.log(price);
+// console.log(price);
   useEffect(() => {
     filterItems();
   }, [category,price,searchTerm]);
@@ -121,6 +122,13 @@ console.log(price);
   }
     }
 
+    const clearAll=()=>{
+      setCategory("all")
+      setPrice(maxPrice)
+      setSearchTerm("")
+      setTempProducts(products.sort((a,b)=>a.price-b.price))
+    }
+
   return (
     <>
       <div className="products-header py-2 ">
@@ -130,7 +138,7 @@ console.log(price);
         </h1>
       </div>
       <div className="row px-md-4 m-0 mt-3 mt-md-4">
-        <div className="col-md-3 m-0">
+        <div className="col-sm-3 m-0 p-0">
           <SideCategory
             categoryList={categoryList}
             category={category}
@@ -142,9 +150,10 @@ console.log(price);
             setSearchTerm={setSearchTerm}
             sortedProduct={sortedProduct}
             setSortedProduct={setSortedProduct}
+            clearAll={clearAll}
           />
         </div>
-        <div className="row col-md-9 m-0 m-auto d-flex justify-content-center align-items-center">
+        <div className="row col-sm-9 m-0 m-auto d-flex justify-content-center align-items-center py-sm-5">
           {tempProducts.map((item) => {
             return <SingleProduct key={item.id} item={item} />;
           })}

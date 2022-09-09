@@ -12,9 +12,9 @@ function App() {
     <div className="app">
       <Provider store={store}>
         <AppRouter>
-          <ToastContainer/>
           <Home />
         </AppRouter>
+        <ToastContainer/>
       </Provider>
     </div>
   );

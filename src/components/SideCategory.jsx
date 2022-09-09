@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 
-const SideCategory = ({categoryList,price,setPrice,maxPrice,category,setCategory,setSearchTerm,searchTerm,sortedProduct,setSortedProduct}) => {
+const SideCategory = ({categoryList,price,setPrice,maxPrice,category,setCategory,setSearchTerm,searchTerm,clearAll,setSortedProduct}) => {
   categoryList=categoryList.sort()
 
   // console.log(maxPrice);
   return (
-    <div>
+    <div className='py-sm-5 mb-3 m-0 p-0'>
       {/* --------------------SEARCH INPUT------------------------ */}
       <div className='search-part'>
         <input type="search"  value={searchTerm} onChange={(e)=>setSearchTerm(e.target.value.toLowerCase())}/>
@@ -23,7 +23,7 @@ const SideCategory = ({categoryList,price,setPrice,maxPrice,category,setCategory
         {/* -------------------------PRICE----------------------------- */}
         <h5>PRICE</h5>
         <p className='m-0'>${price}</p>
-        <input type="range" value={price || maxPrice} min="0" max={maxPrice+1} onChange={(e)=>setPrice(parseFloat(e.target.value))}/>
+        <input type="range" value={price!=undefined && price} min="0" max={maxPrice+1} onChange={(e)=>setPrice(parseFloat(e.target.value))}/>
       </div>
       {/* --------------------------SORT BY-------------------- */}
       <h5 className='mt-4'>SORT BY</h5>
@@ -32,8 +32,10 @@ const SideCategory = ({categoryList,price,setPrice,maxPrice,category,setCategory
                 <option value="Price(Highest)">Price(Highest)</option>
                 <option value="Name(A-Z)">Name(A-Z)</option>
                 <option value="Name(Z-A)">Name(Z-A)</option>
-              </select>
+          </select>
+          <div className='mt-4'><button className='border-0 rounded-3 fw-bold bg-danger text-light py-1 px-3' onClick={clearAll}>CLEAR ALL</button></div>
     </div>
+    
   )
 }
 

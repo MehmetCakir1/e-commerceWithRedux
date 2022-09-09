@@ -5,3 +5,6 @@ export const INCREMENT = 'INCREMENT';
 export const DECREMENT = 'DECREMENT';
 export const RESET = 'RESET';
 export const CART = 'CART';
+export const USER = 'USER';
+export const REMOVE = 'REMOVE';
+export const SHOW_MENU = 'SHOW_MENU';

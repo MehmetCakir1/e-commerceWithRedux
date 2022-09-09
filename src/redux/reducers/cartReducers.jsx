@@ -1,25 +1,19 @@
 import {
-    CART
+    CART,
+    REMOVE,
 } from "../types/productsTypes"
 
-const intialState = {
-    cart:[
-        // {
-        // image:"",
-        // title:"",
-        // amount:"",
-        // price:"",
-        // date:"",
-        // id:"",}
-    ]
-  };
 
-export const cartReducer = (state=intialState,{type,payload})=>{
+
+const initialState = {
+    cart: [...JSON.parse(localStorage.getItem('cart'))]
+  };
+export const cartReducer = (state=initialState,{type,payload})=>{
     switch (type) {
         case CART:
-            return {cart:[...state.cart,{payload}]}
-        // case CLEAR_ALL:
-        //     return { ...state,cart: [...state.cart,{payload}]}
+            return {cart:payload}
+        case REMOVE:
+            return { cart: [...state.cart.filter((item)=>item.id!==payload)]}
         default:
             return state;
 }
