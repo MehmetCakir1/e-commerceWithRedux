@@ -21,7 +21,7 @@
 - __I used localStorage to keep cart list thus your cart won't change after refreshing__<br/>
 - __It is not allowed to add the same item.If you try,just the amount of the item in your cart will increase__<br/>
 - __If there is not item in your cartand press the "buy" button, an alert will be displayed__<br/>
--__If you don't login,you are not allowed to buy something__<br/>
+- __If you don't login,you are not allowed to buy something__<br/>
 - __It is not allowed to add items more than 10 items__<br/>
 
 <div align="center"><img src="https://github.com/MehmetCakir1/e-commerceWithRedux/blob/master/e-commerceWithRedux.gif">
