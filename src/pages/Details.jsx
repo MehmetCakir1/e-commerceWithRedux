@@ -42,7 +42,7 @@ const Details = () => {
   
     useEffect(() => {
         dispatch(setCart([...JSON.parse(localStorage.getItem('cart'))]))
-    }, [])
+    }, [cart])
   
 
 

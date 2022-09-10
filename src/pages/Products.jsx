@@ -22,7 +22,7 @@ const Products = () => {
   const [price, setPrice] = useState(0);
   const [category, setCategory] = useState("all");
   const [searchTerm,setSearchTerm]=useState("");
-  const [sortedProduct, setSortedProduct] = useState("Price(Lowest)")
+  const [sortedProduct, setSortedProduct] = useState()
 
 // console.log(sortedProduct)
 
@@ -83,7 +83,6 @@ const Products = () => {
     }
   };
 
-console.log(sortedProduct)
   const sortBy = () => {
     let empty = []
   // console.log(sortedProduct);
