@@ -41,13 +41,13 @@ const Details = () => {
     }, [])
   
 
-// console.log(cart)
+console.log(cart)
     const {title,description,price,image}=singleProduct;
     const addToCart = () =>{
         let oldAmount;
         const date = new Date().getTime();
         let newcart = {image:image, title:title, amount:amount,price:price,date:date,id:id};
-        let tempArr=cart.length>0 && cart.filter((item)=>item.title===newcart.title)
+        let tempArr=cart && cart.length>0 && cart.filter((item)=>item.title===newcart.title)
         console.log(tempArr)
         if(tempArr.length>0){
             oldAmount=tempArr[0].amount
