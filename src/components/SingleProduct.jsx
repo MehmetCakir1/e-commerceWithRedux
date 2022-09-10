@@ -12,7 +12,7 @@ const SingleProduct = ({item}) => {
   return (
     // col-sm-6 col-md-4 col-lg-3
     <div className=' p-1 text-center outer-div flex-wrap'>
-      <div className='inner-div border border-1 border-dark py-1 pb-2'>
+      <div className='inner-div border border-1 border-dark py-1 pb-2 rounded-3'>
       {/* <h3>{title}</h3> */}
       <div className='img-div p-2 m-0'>
         <img src={image} alt={title}/>
