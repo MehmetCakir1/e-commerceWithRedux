@@ -1,4 +1,3 @@
-import React, { useState } from 'react'
 
 const SideCategory = ({categoryList,price,setPrice,maxPrice,category,setCategory,setSearchTerm,searchTerm,clearAll,setSortedProduct}) => {
   categoryList=categoryList.sort()
@@ -23,7 +22,7 @@ const SideCategory = ({categoryList,price,setPrice,maxPrice,category,setCategory
         {/* -------------------------PRICE----------------------------- */}
         <h5>PRICE</h5>
         <p className='m-0'>${price}</p>
-        <input type="range" value={price!=undefined && price} min="0" max={maxPrice+1} onChange={(e)=>setPrice(parseFloat(e.target.value))}/>
+        <input type="range" value={price!==undefined && price} min="0" max={maxPrice+1} onChange={(e)=>setPrice(parseFloat(e.target.value))}/>
       </div>
       {/* --------------------------SORT BY-------------------- */}
       <h5 className='mt-4'>SORT BY</h5>

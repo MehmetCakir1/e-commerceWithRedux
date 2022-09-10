@@ -65,16 +65,12 @@ const Products = () => {
     "All",
     ...new Set(products.map((item) => item.category)),
   ];
-  // console.log(categoryList)
-
-  // console.log(defaultPrice);
-//   console.log(products)
 
   const filterItems = () => {
     let tempCategory;
     let tempPrice;
     let tempSearch;
-    if (category === "all" && price == maxPrice && searchTerm=="") {
+    if (category === "all" && price === maxPrice && searchTerm==="") {
       setTempProducts(products);
     } else {
       if (category !== "all") {
@@ -126,6 +122,7 @@ const Products = () => {
       setCategory("all")
       setPrice(maxPrice)
       setSearchTerm("")
+      setSortedProduct("Price(Lowest)")
       setTempProducts(products.sort((a,b)=>a.price-b.price))
     }
 

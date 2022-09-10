@@ -1,4 +1,3 @@
-import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { reset } from '../redux/actions/productsActions'
@@ -7,7 +6,7 @@ import { reset } from '../redux/actions/productsActions'
 const SingleProduct = ({item}) => {
   const dispatch=useDispatch()
   const navigate=useNavigate()
-  const {id,title,price,category,image}=item;
+  const {id,title,price,image}=item;
 
   return (
     // col-sm-6 col-md-4 col-lg-3
