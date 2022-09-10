@@ -40,6 +40,11 @@ const Details = () => {
         getSingleProduct()
     }, [])
   
+    useEffect(() => {
+        dispatch(setCart([...JSON.parse(localStorage.getItem('cart'))]))
+    }, [])
+  
+
 
 console.log(cart)
     const {title,description,price,image}=singleProduct;
