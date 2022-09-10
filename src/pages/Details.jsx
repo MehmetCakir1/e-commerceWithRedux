@@ -1,6 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux"
-import { toastErrorNotify } from '../helpers/toastify'
 import axios from "axios"
 import { setLoading, setSingleProduct,increment,decrement } from '../redux/actions/productsActions'
 import {useEffect} from "react"
@@ -31,7 +30,6 @@ const Details = () => {
             dispatch(setSingleProduct(data))
             // console.log(data)
             dispatch(setLoading(false))
-
         }catch(err){
             // toastErrorNotify(err.message)
             dispatch(setLoading(false))
@@ -41,7 +39,9 @@ const Details = () => {
     useEffect(() => {
         getSingleProduct()
     }, [])
+  
 
+// console.log(cart)
     const {title,description,price,image}=singleProduct;
     const addToCart = () =>{
         let oldAmount;

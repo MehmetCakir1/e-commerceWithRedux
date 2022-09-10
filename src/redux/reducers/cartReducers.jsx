@@ -6,8 +6,9 @@ import {
 
 
 const initialState = {
-    cart: JSON.parse(localStorage.getItem('cart'))
+    cart: []
   };
+  initialState.cart=[...JSON.parse(localStorage.getItem('cart'))]
 export const cartReducer = (state=initialState,{type,payload})=>{
     switch (type) {
         case CART:

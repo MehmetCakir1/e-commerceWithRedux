@@ -15,6 +15,7 @@ const Cart = () => {
 
   let shippingFee = 7.65;
 
+
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
