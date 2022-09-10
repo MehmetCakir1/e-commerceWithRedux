@@ -45,15 +45,6 @@ const Products = () => {
   }, []);
 
   useEffect(() => {
-    if (products.length>0 && !loading) {
-      setTempProducts(products.sort((a,b)=>a.price-b.price))
-      setPrice(maxPrice)
-      // console.log(tempProducts);
-    }
-  }, [products]);
-// console.log(maxPrice)
-// console.log(price);
-  useEffect(() => {
     filterItems();
   }, [category,price,searchTerm]);
 
@@ -92,7 +83,7 @@ const Products = () => {
     }
   };
 
-
+console.log(sortedProduct)
   const sortBy = () => {
     let empty = []
   // console.log(sortedProduct);
@@ -122,8 +113,6 @@ const Products = () => {
       setCategory("all")
       setPrice(maxPrice)
       setSearchTerm("")
-      setSortedProduct("Price(Lowest)")
-      setTempProducts(products.sort((a,b)=>a.price-b.price))
     }
 
   return (
