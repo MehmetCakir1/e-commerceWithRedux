@@ -42,7 +42,7 @@ const Cart = () => {
   }
 
 
-  console.log(cart);
+  // console.log(cart);
   return (
     <>
       <div className="details-header py-2 ">
