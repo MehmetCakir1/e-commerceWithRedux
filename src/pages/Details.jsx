@@ -47,7 +47,7 @@ const Details = () => {
         let oldAmount;
         const date = new Date().getTime();
         let newcart = {image:image, title:title, amount:amount,price:price,date:date,id:id};
-        let tempArr=cart.filter((item)=>item.title===newcart.title)
+        let tempArr=cart && cart.filter((item)=>item.title===newcart.title)
         console.log(tempArr)
         if(tempArr.length>0){
             oldAmount=tempArr[0].amount
