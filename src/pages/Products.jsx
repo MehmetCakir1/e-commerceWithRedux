@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { toastErrorNotify } from "../helpers/toastify";
 import { useDispatch, useSelector } from "react-redux";
-import { setLoading, setProduct } from "../redux/actions/productsActions";
+import { setCart, setLoading, setProduct } from "../redux/actions/productsActions";
 import SingleProduct from "../components/SingleProduct";
 import SideCategory from "../components/SideCategory";
 import { useNavigate } from "react-router-dom";
+import { cartReducer } from "../redux/reducers/cartReducers";
 
 let url = "https://fakestoreapi.com/products";
 
@@ -23,6 +24,7 @@ const Products = () => {
   const [category, setCategory] = useState("all");
   const [searchTerm,setSearchTerm]=useState("");
   const [sortedProduct, setSortedProduct] = useState()
+  const cart=useSelector((state)=>state.cart.cart)
 
 // console.log(sortedProduct)
 
@@ -51,6 +53,7 @@ const Products = () => {
   useEffect(() => {
     sortBy();
   }, [sortedProduct]);
+
 
   const categoryList = [
     "All",

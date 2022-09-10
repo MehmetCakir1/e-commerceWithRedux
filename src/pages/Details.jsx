@@ -39,26 +39,24 @@ const Details = () => {
     useEffect(() => {
         getSingleProduct()
     }, [])
-  
-    useEffect(() => {
-        dispatch(setCart([...JSON.parse(localStorage.getItem('cart'))]))
-    }, [cart])
-  
+ 
+    //   useEffect(() => {
+//     dispatch(setCart([...JSON.parse(localStorage.getItem('cart'))]))
+// }, [cart])
 
-
-console.log(cart)
+// console.log(cart)
     const {title,description,price,image}=singleProduct;
     const addToCart = () =>{
         let oldAmount;
         const date = new Date().getTime();
         let newcart = {image:image, title:title, amount:amount,price:price,date:date,id:id};
         let tempArr=cart && cart.length>0 && cart.filter((item)=>item.title===newcart.title)
-        console.log(tempArr)
+        // console.log(tempArr)
         if(tempArr.length>0){
             oldAmount=tempArr[0].amount
             console.log(oldAmount);
             newcart={...newcart,amount:(oldAmount+newcart.amount)} 
-            console.log(newcart)
+            // console.log(newcart)
             cart.splice(cart.indexOf(tempArr[0]),1)
           }
         dispatch(setCart([...cart,newcart]))
