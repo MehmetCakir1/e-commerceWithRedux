@@ -9,7 +9,7 @@ const initialState = {
     cart:[]
   };
   if (localStorage.getItem("cart")) {
-    initialState.cart = JSON.parse(localStorage.getItem("cart"));
+    initialState.cart = [...JSON.parse(localStorage.getItem("cart"))];
   } else {  
     initialState.cart = [];
   }

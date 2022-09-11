@@ -14,7 +14,7 @@ const Cart = () => {
   const [subTotal, setSubTotal] = useState();
 
   let shippingFee = 7.65;
-
+console.log(cart);
 
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
@@ -62,7 +62,7 @@ const Cart = () => {
           <p className="text-center"></p>
         </div>
 
-        {cart?.sort((a,b)=>a.date-b.date).map((item, index) => {
+        {Array.isArray(cart) && cart.sort((a,b)=>a.date-b.date).map((item, index) => {
           return <SingleCart key={index} item={item} costing={costing}/>;
         })}
       </main>

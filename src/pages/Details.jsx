@@ -20,7 +20,6 @@ const Details = () => {
     const loading=useSelector((state)=>state.singleProduct.loading)
     const amount=useSelector((state)=>state.singleProduct.amount)
     const cart=useSelector((state)=>state.cart.cart)
-
     let singleUrl=`https://fakestoreapi.com/products/${id}`
 
     const getSingleProduct= async()=>{
@@ -40,6 +39,7 @@ const Details = () => {
         getSingleProduct()
     }, [])
  
+
     //   useEffect(() => {
 //     dispatch(setCart([...JSON.parse(localStorage.getItem('cart'))]))
 // }, [cart])
@@ -60,11 +60,10 @@ const Details = () => {
             cart.splice(cart.indexOf(tempArr[0]),1)
             dispatch(setCart([...cart,newcart]))
           }else{
-            dispatch(setCart([newcart]))
-          }
-          
+            dispatch(setCart([...cart,newcart]))          }
         navigate("/cart")
       }
+
   return (
     <>
              <div className="details-header py-2 ">
