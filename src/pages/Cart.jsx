@@ -22,7 +22,7 @@ const Cart = () => {
 
   const calculateTotal = () => {
     let sum = 0;
-    cart.map((item) => (sum += item.amount * item.price));
+    cart?.map((item) => (sum += item.amount * item.price));
     setSubTotal(sum);
   };
   useEffect(() => {
@@ -62,7 +62,7 @@ const Cart = () => {
           <p className="text-center"></p>
         </div>
 
-        {cart.sort((a,b)=>a.date-b.date).map((item, index) => {
+        {cart?.sort((a,b)=>a.date-b.date).map((item, index) => {
           return <SingleCart key={index} item={item} costing={costing}/>;
         })}
       </main>

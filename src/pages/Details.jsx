@@ -52,17 +52,19 @@ const Details = () => {
         let newcart = {image:image, title:title, amount:amount,price:price,date:date,id:id};
         let tempArr=cart && cart.length>0 && cart.filter((item)=>item.title===newcart.title)
         // console.log(tempArr)
-        if(tempArr.length>0){
+        if(tempArr?.length>0){
             oldAmount=tempArr[0].amount
             console.log(oldAmount);
             newcart={...newcart,amount:(oldAmount+newcart.amount)} 
             // console.log(newcart)
             cart.splice(cart.indexOf(tempArr[0]),1)
+            dispatch(setCart([...cart,newcart]))
+          }else{
+            dispatch(setCart([newcart]))
           }
-        dispatch(setCart([...cart,newcart]))
+          
         navigate("/cart")
       }
-
   return (
     <>
              <div className="details-header py-2 ">

@@ -6,14 +6,12 @@ import {
 
 
 const initialState = {
-    cart: []
+    cart:[]
   };
   if (localStorage.getItem("cart")) {
     initialState.cart = JSON.parse(localStorage.getItem("cart"));
-  } else {
-    localStorage.setItem("initialState", JSON.stringify({ cart: [] }));
-  
-    initialState.cart = JSON.parse(localStorage.getItem("cart"));
+  } else {  
+    initialState.cart = [];
   }
 export const cartReducer = (state=initialState,{type,payload})=>{
     switch (type) {
