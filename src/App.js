@@ -11,9 +11,7 @@ function App() {
   return (
     <div className="app">
       <Provider store={store}>
-        <AppRouter>
-          <Home />
-        </AppRouter>
+        <AppRouter/>
         <ToastContainer/>
       </Provider>
     </div>
