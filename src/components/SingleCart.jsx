@@ -1,5 +1,6 @@
 import { FaMinus,FaPlus,FaTrashAlt} from "react-icons/fa";
 import { useDispatch, useSelector, } from "react-redux";
+import { toastSuccessNotify } from "../helpers/toastify";
 import { increment,decrement,removeItem, setCart } from '../redux/actions/productsActions'
 
 
@@ -26,6 +27,11 @@ const SingleCart = ({item,costing}) => {
     let testcart=cart.filter((item)=>item.id!==id)
     dispatch(setCart([...testcart, ...newCart]))
         } }
+
+      const deleteItem=(id)=>{
+          dispatch(removeItem(id))
+          toastSuccessNotify("item removed successfully")
+        }
   return (
     <div className='main-cart-div py-2 border-bottom border-1 border-secondary m-0 p-0'>
       <div className='single-cart-img-div text-center m-0 p-0'>
@@ -39,7 +45,7 @@ const SingleCart = ({item,costing}) => {
       <button className='border-0 fs-5 plus' onClick={()=> increaseQuantity(id)}><FaPlus/></button>
         </div>
       <h3 className="d-flex justify-content-center align-items-center text-primary m-0 p-0 subtotal">${costing(price*amount)}</h3>
-      <button className='border-0 fs-3 bg-transparent text-danger d-flex justify-content-center align-items-center'  ><span onClick={()=> dispatch(removeItem(id))}><FaTrashAlt/></span> </button>
+      <button className='border-0 fs-3 bg-transparent text-danger d-flex justify-content-center align-items-center'  ><span onClick={()=> deleteItem(id)}><FaTrashAlt/></span> </button>
     </div>
   )
 }
