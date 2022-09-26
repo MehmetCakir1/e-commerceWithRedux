@@ -48,7 +48,7 @@ const Products = () => {
 
   useEffect(() => {
     filterItems();
-  }, [category,price,searchTerm]);
+  }, [category,price,searchTerm,sortedProduct]);
 
   useEffect(() => {
     sortBy();
@@ -82,7 +82,30 @@ const Products = () => {
       }else{
         tempSearch = products
       }
+      let result=_.intersection(tempCategory,tempPrice,tempSearch)
       setTempProducts(_.intersection(tempCategory,tempPrice,tempSearch))
+      let empty = []
+      // console.log(sortedProduct);
+      if (sortedProduct === "Price(Lowest)"){
+        const newStatus = empty.concat(result)
+      setTempProducts(newStatus?.sort((a,b)=>a.price - b.price))
+      empty = []
+      }
+      if (sortedProduct === "Price(Highest)"){
+        const newStatus = empty.concat(result)
+      setTempProducts(newStatus?.sort((a,b)=>b.price - a.price))
+      empty = []
+      }
+      if (sortedProduct === "Name(A-Z)"){
+        const newStatus = empty.concat(result)
+      setTempProducts(_.sortBy(newStatus, 'title'))
+      empty = []
+      }
+      if (sortedProduct === "Name(Z-A)"){
+        const newStatus = empty.concat(result)
+      setTempProducts(_.sortBy(newStatus, 'title').reverse())
+      empty = []
+      }
     }
   };
 
