@@ -1,7 +1,5 @@
 *[Click here to see the project](https://e-commerce-with-redux.vercel.app/)*
 
-__*The project has not been completed yet*__
-
 - __Redux__<br/>
 - __React Hooks__ <br/>
 - __Props/States/Components__<br/>
